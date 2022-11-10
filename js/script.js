@@ -11,60 +11,76 @@ function getComputerChoice (hand) {
     return hand[Math.floor(Math.random()*hand.length)];
 }
 
-/*- The player's choice is stored in a variable.
+let computerSelection = getComputerChoice(hand);
+
+/*- A prompt gets the input from user, and stores it in a variable.
   - The parameter must be case-insensitive
-  - When player selects a hand the computer also selects a hand*/
+  - When user selects a hand the computer also selects a hand*/
 
-const computerSelection = getComputerChoice(hand);
+let userSelection = prompt('Please type "rock, paper or scissor".');
 
-function checkHand (playerSelection) {
-    playerSelection = playerSelection.toLowerCase();
-    if (playerSelection == "rock" || playerSelection == "paper" || playerSelection == "scissor") {
-        checkHand = playerSelection;
+if (userSelection.toLowerCase() === "rock" || userSelection.toLocaleLowerCase() === "paper" || userSelection.toLocaleLowerCase() === "scissor") {
+        console.log(`You select ${userSelection}`);
+        console.log(`The computer selects ${computerSelection}`);
+    } else {
+        console.log('Please type "rock, paper or scissor"');
+    }
+
+
+/* OLD CHECKHAND
+function checkHand (userSelection) {
+    userSelection = userSelection.toLowerCase();
+    if (userSelection == "rock" || userSelection == "paper" || userSelection == "scissor") {
+        checkHand = userSelection;
         console.log(`You select ${checkHand}`);
         console.log(`The computer selects ${computerSelection}`);
-        return playerSelection;
+        return userSelection;
     } else {
         console.log('Please type "rock, paper or scissor"');
     }
 }
 
-const playerSelection = checkHand('paper');
+let userSelection = checkHand('paper');
+*/
 
-/*A single round, player against computer*/
+/*A single round, user against computer*/
 
-function playRound (playerSelection, computerSelection) {
-    if (playerSelection == "rock" && computerSelection == "scissor"
-        || playerSelection == "paper" && computerSelection == "rock"
-        || playerSelection == "scissor" && computerSelection == "paper")  {
-        return `You win, ${playerSelection} beats ${computerSelection}.`;
-    } else if (playerSelection == computerSelection) {
+let userScore = 0;
+let computerScore = 0;
+
+function playRound (userSelection, computerSelection) {
+    if (userSelection == "rock" && computerSelection == "scissor"
+        || userSelection == "paper" && computerSelection == "rock"
+        || userSelection == "scissor" && computerSelection == "paper")  {
+        userScore++;
+        return `You win, ${userSelection} beats ${computerSelection}.`;
+    } else if (userSelection == computerSelection) {
         return "Draw! Do it again.";
-    } else if (playerSelection == "rock" && computerSelection == "paper"
-        || playerSelection == "paper" && computerSelection == "scissor"
-        || playerSelection == "scissor" && computerSelection == "rock"){
-        return `You lose, ${computerSelection} beats ${playerSelection}.`;
+    } else if (userSelection == "rock" && computerSelection == "paper"
+        || userSelection == "paper" && computerSelection == "scissor"
+        || userSelection == "scissor" && computerSelection == "rock"){
+        computerScore++
+        return `You lose, ${computerSelection} beats ${userSelection}.`;
     } else {
        return "No game";
     }
 }
 
-console.log(playRound(playerSelection, computerSelection));
+console.log(playRound(userSelection, computerSelection));
 
-/* Scoreboard variable for player and computer
-Starts at 0, for each win they'll 1 gets added*/
-
-let playerScore = 0;
-let computerScore = 0;
-
-/* A game of five
-Each time the player win, increase the player score by 1
-Each time the computer win, increase the computer score by 1
-The first to reach 5 wins the game */
+/* a game of 5
+Keeps score of each round
+Reports a winner or loser at the end */
 
 function game(playRound) {
-    for (let playerScore = 0; playerScore < 5; playerScore++) {
-
+    for (playRound(userScore, computerScore); userScore < 5 || computerScore < 5;)
+        if (userScore === 5) {
+            return"User wins";
+        } else if (computerScore === 5) {
+            return"Computer wins";
+        } else {
+            return `Score is ${userScore} to ${computerScore}`;
+        }
     }
 
-}
+console.log(game(playRound));
