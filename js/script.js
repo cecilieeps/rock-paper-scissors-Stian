@@ -10,34 +10,38 @@ Fix the timer so it don't count when players don't type "rock, paper or scissor"
 let userScore = 0;
 let computerScore = 0;
 
+/*Make a variable that contains the strings "rock, paper and scissor"*/
+var hand = ["rock", "paper", "scissor"];
+
+/*The computer returns rock, paper or scissor at random */
+function getComputerChoice (hand) {
+    return hand[Math.floor(Math.random()*hand.length)];
+        }
+    let computerSelection = getComputerChoice(hand);
+    
+
 /* This function runs the entire game up to five times*/ 
 function game() {
-    for (let i = 0; i < 5; i++) {
-        if (i === 5 && computerScore > userScore) {
+    for (let i = 1; i <= 6; i++) {
+        if (i == 6 && computerScore > userScore) {
             console.log("Game is over, computer wins the game!");
-        } else if (i === 5 && userScore < computerScore) {
+        } else if (i == 6 && computerScore == userScore) {
+            console.log("Game is over, it is a draw!");
+        } else if (i == 6) {
             console.log("Game is over, you win the game!");
         } else {
-
-            /*Make a variable that contains the strings "rock, paper and scissor"*/
-            var hand = ["rock", "paper", "scissor"];
-
-            /*The computer returns rock, paper or scissor at random */
-            function getComputerChoice (hand) {
-                return hand[Math.floor(Math.random()*hand.length)];
-            }
-            let computerSelection = getComputerChoice(hand);
 
             /*- A prompt gets the input from user, and stores it in a variable.
             - The parameter must be case-insensitive
             - When user selects a hand the computer also selects a hand*/
+        
             let userSelection = prompt('Please type "rock, paper or scissor".');
 
                 if (userSelection.toLowerCase() === "rock" || userSelection.toLocaleLowerCase() === "paper" || userSelection.toLocaleLowerCase() === "scissor") {
                     console.log(`You select ${userSelection}`);
                     console.log(`The computer selects ${computerSelection}`);
                 } else {
-                    console.log('Please type "rock, paper or scissor"');
+                    alert('Please type "rock, paper or scissor"');
                 }
 
 
@@ -64,4 +68,4 @@ function game() {
         } 
     }
 }
-console.log(game());
+game();
