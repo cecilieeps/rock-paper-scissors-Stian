@@ -18,15 +18,18 @@ function getComputerChoice (hand) {
     return hand[Math.floor(Math.random()*hand.length)];
         }
     let computerSelection = getComputerChoice(hand);
-    
 
 /* This function runs the entire game up to five times*/ 
 function game() {
     for (let i = 1; i <= 6; i++) {
+        /* If the computer has the most point after five rounds, it wins*/
         if (i == 6 && computerScore > userScore) {
             console.log("Game is over, computer wins the game!");
+
+        /* If it's equal number of points, it is a draw*/
         } else if (i == 6 && computerScore == userScore) {
             console.log("Game is over, it is a draw!");
+        /* If the player has the most point after five rounds, they win*/
         } else if (i == 6) {
             console.log("Game is over, you win the game!");
         } else {
@@ -34,7 +37,6 @@ function game() {
             /*- A prompt gets the input from user, and stores it in a variable.
             - The parameter must be case-insensitive
             - When user selects a hand the computer also selects a hand*/
-        
             let userSelection = prompt('Please type "rock, paper or scissor".');
 
                 if (userSelection.toLowerCase() === "rock" || userSelection.toLocaleLowerCase() === "paper" || userSelection.toLocaleLowerCase() === "scissor") {
@@ -43,8 +45,7 @@ function game() {
                 } else {
                     alert('Please type "rock, paper or scissor"');
                 }
-
-
+                
             /*A single round, user against computer*/
             function playRound (userSelection, computerSelection) {
                 if (userSelection == "rock" && computerSelection == "scissor"
