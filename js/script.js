@@ -10,14 +10,16 @@ Fix the timer so it don't count when players don't type "rock, paper or scissor"
 let userScore = 0;
 let computerScore = 0;
 
+let computerSelection = getComputerChoice();
+
 /*Make a variable that contains the strings "rock, paper and scissor"*/
-var hand = ["rock", "paper", "scissor"];
+
 
 /*The computer returns rock, paper or scissor at random */
-function getComputerChoice (hand) {
+function getComputerChoice () {
+    let hand = ["rock", "paper", "scissor"];
     return hand[Math.floor(Math.random()*hand.length)];
-        }
-    let computerSelection = getComputerChoice(hand);
+}
 
 /* This function runs the entire game up to five times*/ 
 function game() {
@@ -47,26 +49,40 @@ function game() {
                 }
                 
             /*A single round, user against computer*/
-            function playRound (userSelection, computerSelection) {
-                if (userSelection == "rock" && computerSelection == "scissor"
-                    || userSelection == "paper" && computerSelection == "rock"
-                    || userSelection == "scissor" && computerSelection == "paper") {
-                    userScore++;
-                    return `You win this round, ${userSelection} beats ${computerSelection}.`;
-                } else if (userSelection == computerSelection) {
-                    return "Draw! Do it again.";
-                } else if (userSelection == "rock" && computerSelection == "paper"
-                    || userSelection == "paper" && computerSelection == "scissor"
-                    || userSelection == "scissor" && computerSelection == "rock") {
-                    computerScore++
-                    return `You lose this round, ${computerSelection} beats ${userSelection}.`;
-                } else {
-                    return "No game";
+            function playRound(userSelection, computerSelection){
+                switch (userSelection) {
+                    case "rock":
+                        if (computerSelection === "scissor") {
+                            userScore++;
+                        }
+                        else if (computerSelection === "paper") {
+                            computerScore++;
+                        }
+                        break;
+                    case "paper":
+                        if (computerSelection === "rock") {
+                            userScore++;
+                        }
+                        else if (computerSelection === "scissor") {
+                            computerScore++;
+                        }
+                        break;
+                    case "scissor":
+                        if (computerSelection === "paper") {
+                            userScore++;
+                        }
+                        else if (computerSelection === "rock") {
+                            computerScore++;
+                        }
+                        break;
+                    default:
+                        // If none of the above are true then it must be that the arguments
+                        // are equal in value. 
+                        console.log("It's a draw!")
                 }
             }
-                console.log(playRound(userSelection, computerSelection));
-                console.log(`Score is ${userScore} to ${computerScore} at round ${i}`);         
         } 
     }
 }
+
 game();
